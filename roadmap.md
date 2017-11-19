@@ -3,7 +3,7 @@
 ## Repository cleanup
 
 - [ ] General cleanup for repo files and dependencies
-- [ ] Remove Meteor dependency
+- [ ] Remove Meteor dependency ** (critical)
 - [ ] Make cross-platform (Currently does not run on Windows)
 - [ ] Remove electron dependency?
 
@@ -23,7 +23,6 @@
 - [ ] Modify input/output model to a context-based one, where users can input data files which belong to a single project, and visualize all of the information for that project
 - [ ] Support all data output formats from [SWITCH](https://github.com/switch-model/switch)
 - [ ] Streamline data pipe from [switch](https://github.com/switch-model/switch)
-- [ ] 
 - [ ] Develop interactive visualizations for outputs
 - [ ] Export visualizations
 	- Embeddable HTMLs
@@ -33,8 +32,12 @@
 	- *GIS?
 - [ ] Publish dashboards? 
 - [ ] Visualize data inputs for geographic information
+- [ ] General UX improvements
+- [ ] General UI improvements
+- [ ] UI standarization
 
 ## Future developments
 
 - [ ] Refactor core modules to C++? 
 - [ ] Run the whole model from App
+- [ ] User testing on target users
