@@ -1,4 +1,5 @@
 src/.meteor/local
+cuentagantt.txt
 src/.meteor/meteorite
 src/node_modules/*
 src/.app/*
