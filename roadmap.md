@@ -1,5 +1,10 @@
 # Switch GUI Roadmap
 
+## User profile
+
+Dr. Rafael Alexandri
+PRODESEN
+
 ## Repository cleanup
 
 - [ ] General cleanup for repo files and dependencies
@@ -21,17 +26,21 @@
 ## Additional features
 
 - [ ] Modify input/output model to a context-based one, where users can input data files which belong to a single project, and visualize all of the information for that project
+- [ ] Visualize data inputs for geographic information
+- [ ] Develop interactive visualizations for inputs/outputs
+
 - [ ] Support all data output formats from [SWITCH](https://github.com/switch-model/switch)
-- [ ] Streamline data pipe from [switch](https://github.com/switch-model/switch)
-- [ ] Develop interactive visualizations for outputs
+- [ ] Streamline data pipe from [SWITCH](https://github.com/switch-model/switch)
 - [ ] Export visualizations
 	- Embeddable HTMLs
 	- SVGs?
 	- PDF?
 	- PowerBI/Tableau
 	- *GIS?
-- [ ] Publish dashboards? 
-- [ ] Visualize data inputs for geographic information
+- [ ] Publish dashboards
+
+
+
 - [ ] General UX improvements
 - [ ] General UI improvements
 - [ ] UI standarization
@@ -41,3 +50,4 @@
 - [ ] Refactor core modules to C++? 
 - [ ] Run the whole model from App
 - [ ] User testing on target users
+
