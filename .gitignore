@@ -12,4 +12,8 @@ src/.bundle/*
 src/npm-debug.log
 src/.tmp
 
+# This file is only for VSCod
+src/jsonconfig.json
+
+
 
