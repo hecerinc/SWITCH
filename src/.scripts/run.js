@@ -19,8 +19,7 @@ process.env.NODE_ENV = 'development';
 
 // -- Set up some paths --------------------------------------------------------
 
-const dir = __dirname;
-const base = path.normalize(path.join(dir, '..'));
+const base = path.normalize(path.join(__dirname, '..'));
 
 // -- Determine the platform and arch running ----------------------------------
 
@@ -38,12 +37,12 @@ cd(base);
 
 console.log('-----> Starting Meteor...'.yellow);
 
-const meteorCommand = (onWindows === true) ? 'meteor.bat' : 'meteor';
+const meteorCommand = onWindows ? 'meteor.bat' : 'meteor';
 const meteor = spawn(meteorCommand);
-let electron;
 
 // -- Output Meteor and Electron messages to the console -----------------------
 
+let electron;
 meteor.stdout.setEncoding('utf8');
 meteor.stdout.on('data', function (data) {
   console.log(data);
