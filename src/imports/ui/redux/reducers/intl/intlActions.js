@@ -4,7 +4,7 @@ import en from 'react-intl/locale-data/en';
 import { updateIntl } from 'react-intl-redux';
 import messagesSpanish from '../../../locales/es';
 import messagesEnglish from '../../../locales/en';
-import actionConstants from '../actionConstants';
+import actionConstants from '../actionsConstants';
 
 // Action types
 const {

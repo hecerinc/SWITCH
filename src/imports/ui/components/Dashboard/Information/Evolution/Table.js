@@ -11,6 +11,7 @@ const data = [
   { name: 'Nuclear Power', value: 3 },
 ];
 
+// TODO: make this table dynamic
 export default class T extends React.Component {
   render() {
     return (
