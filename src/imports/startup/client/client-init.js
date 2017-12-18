@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 // APOLLO SPECIFIC
 import client from '/imports/ui/apollo/ApolloClient';
-import store from '/imports/ui/redux/store/index';
+import store from '/imports/ui/redux/store';
 import { ApolloProvider } from 'react-apollo';
 import { ConnectedRouter } from 'react-router-redux';
 import { IntlProvider } from 'react-intl-redux';

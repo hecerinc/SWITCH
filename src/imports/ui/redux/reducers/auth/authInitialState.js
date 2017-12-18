@@ -1,36 +1,45 @@
-import { Record } from 'immutable';
+// Auth initial state.js
 
-const { SIGNIN } = require('../actionsConstants').default;
+import { Record } from 'immutable';
+import { SIGNIN } from '../actionsConstants';
+
 /**
- * ## Form
+ * Form
  * This Record contains the state of the form and the
  * fields it contains.
  */
 
+// A Record is an immutable structure whose _keys_ cannot be changed (cannot add more properties) and have default values
+const formFields = Record({
+	// Fields
+	username: '',
+	email: '',
+	password: '',
+	passwordAgain: '',
+	// showPassword
+	showPassword: false,
+	// <field>HasError?
+	usernameHasError: false,
+	emailHasError: false,
+	passwordHasError: false,
+	passwordAgainHasError: false
+});
+
 const Form = Record({
-  state: SIGNIN,
-  disabled: false,
-  error: null,
-  isValid: false,
-  isFetching: false,
-  fields: new (Record({
-    username: '',
-    usernameHasError: false,
-    email: '',
-    emailHasError: false,
-    password: '',
-    passwordHasError: false,
-    passwordAgain: '',
-    passwordAgainHasError: false,
-    showPassword: false,
-  }))(),
+	state: SIGNIN, // BUG: default state is 'SIGN_IN'
+	disabled: false,
+	error: null,
+	isValid: false,
+	isFetching: false,
+	fields: new formFields()
 });
 
 /**
  * ## InitialState
  * The form is set
  */
-const InitialState = Record({
-  form: new Form(),
+const initialState = new Record({
+	form: new Form()
 });
-export default InitialState;
+
+export default initialState;

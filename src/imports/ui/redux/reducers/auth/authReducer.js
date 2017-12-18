@@ -1,10 +1,11 @@
-import InitialState from './authInitialState';
-import authFormValidation from './authFormValidation';
 import authFieldValidations from './authFieldValidations';
+import authFormValidation from './authFormValidation';
+import initialState from './authInitialState';
+
 /**
  * ## Auth actions
  */
-const {
+import {
   ON_AUTH_FORM_FIELD_CHANGE,
   SESSION_TOKEN_REQUEST,
   SESSION_TOKEN_SUCCESS,
@@ -27,17 +28,16 @@ const {
   FORGOT_PASSWORD,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILURE,
-} = require('../actionsConstants').default;
+  RESET_PASSWORD_FAILURE
+} from '../actionsConstants';
 
-const initialState = new InitialState();
 /**
  * ## authReducer function
  * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
 export default function authReducer(state = initialState, action) {
-  switch (action.type) {
+  switch (action.type) { // BUG: This action type is really not an action type, but the state of the form (which form or stage are we in)
     /**
      * ### Requests start
      * set the form to fetching and clear any errors
@@ -70,11 +70,12 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form', 'fields', 'passwordAgainHasError'], false)
       );
     /**
-     * ### Loggin in state
+     * ### Logging-in state
      * The user isn't logged in, and needs to
      * signin, signup or reset password
      *
      * Set the form state and clear any errors
+     // All of these states are submissions for each type of form 
      */
     case SIGNIN:
     case SIGNUP:
@@ -106,12 +107,17 @@ export default function authReducer(state = initialState, action) {
       const { field, value } = action.payload;
       let nextState = state.setIn(['form', 'fields', field], value).setIn(['form', 'error'], null);
 
+      // Essentially equivalent to:
+      /*
+        const newState = validateFields(state, action)
+        return validateForm(newState, action);
+      */
       return authFormValidation(authFieldValidations(nextState, action), action);
     }
     /**
-   * ### Requests end, good or bad
-   * Set the fetching flag so the forms will be enabled
-   */
+     * ### Requests end, good or bad
+     * Set the fetching flag so the forms will be enabled
+     */
     case SESSION_TOKEN_SUCCESS:
     case SESSION_TOKEN_FAILURE:
     case SIGNUP_SUCCESS:
@@ -120,10 +126,10 @@ export default function authReducer(state = initialState, action) {
     case RESET_PASSWORD_SUCCESS:
       return state.setIn(['form', 'isFetching'], false);
     /**
-   * ### Access to Parse.com denied or failed
-   * The fetching is done, but save the error
-   * for display to the user
-   */
+     * ### Access to Parse.com denied or failed
+     * The fetching is done, but save the error
+     * for display to the user
+     */
     case SIGNUP_FAILURE:
     case LOGOUT_FAILURE:
     case SIGNIN_FAILURE:
@@ -133,13 +139,8 @@ export default function authReducer(state = initialState, action) {
     case DELETE_TOKEN_REQUEST:
     case DELETE_TOKEN_SUCCESS:
     case DELETE_TOKEN_FAILURE:
-      /**
-         * no state change, just an ability to track action requests...
-         */
+      // no state change, just an ability to track action requests...
       return state;
-    /*
-    * ## Default
-   */
     default:
       return state;
   }

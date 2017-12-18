@@ -15,15 +15,15 @@ export default keyMirror({
   DELETE_TOKEN_SUCCESS: null,
   DELETE_TOKEN_FAILURE: null,
   ON_AUTH_FORM_FIELD_CHANGE: null,
-  SIGNIN: null,
+  SIGNIN: null, // BUG: These are NOT actions! these are states of the login form
   SIGNIN_REQUEST: null,
   SIGNIN_SUCCESS: null,
   SIGNIN_FAILURE: null,
-  SIGNUP: null,
+  SIGNUP: null, // BUG: These are NOT actions! these are states of the login form
   SIGNUP_REQUEST: null,
   SIGNUP_SUCCESS: null,
   SIGNUP_FAILURE: null,
-  LOGOUT: null,
+  LOGOUT: null, // BUG: These are NOT actions! these are states of the login form
   LOGOUT_REQUEST: null,
   LOGOUT_SUCCESS: null,
   LOGOUT_FAILURE: null,
