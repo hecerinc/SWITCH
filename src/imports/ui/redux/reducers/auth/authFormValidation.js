@@ -1,6 +1,8 @@
 // authFormValidation.js
 
-import { LOGOUT, SIGNUP, SIGNIN, FORGOT_PASSWORD } from '../actionsConstants';
+import actionConstants from '../actionsConstants';
+
+const { LOGOUT, SIGNUP, SIGNIN, FORGOT_PASSWORD } = actionConstants;
 
 /**
  * formValidation

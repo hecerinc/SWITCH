@@ -4,16 +4,24 @@ import en from 'react-intl/locale-data/en';
 import { updateIntl } from 'react-intl-redux';
 import messagesSpanish from '../../../locales/es';
 import messagesEnglish from '../../../locales/en';
+import actionConstants from '../actionConstants';
 
 // Action types
-import {
+const {
   LOCALE_CONFIG_REQUEST,
   LOCALE_CONFIG_SUCCESS,
   LOCALE_CONFIG_FAILURE,
   LOCALE_SET_LANGUAGE_REQUEST,
   LOCALE_SET_LANGUAGE_SUCCESS,
   LOCALE_SET_LANGUAGE_FAILURE
-} from '../actionsConstants';
+} = actionConstants;
+
+console.log(LOCALE_CONFIG_REQUEST,
+  LOCALE_CONFIG_SUCCESS,
+  LOCALE_CONFIG_FAILURE,
+  LOCALE_SET_LANGUAGE_REQUEST,
+  LOCALE_SET_LANGUAGE_SUCCESS,
+  LOCALE_SET_LANGUAGE_FAILURE);
 
 export function initLocale() {
   return dispatch => {

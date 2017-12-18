@@ -1,17 +1,18 @@
 import immutable from 'immutable';
 import { UPDATE } from 'react-intl-redux';
 import initialState from './intlInitialState';
+import actionConstants from '../actionsConstants';
 
 /** 
  * Global actions 
  */
 
-import {
+const {
 	SET_INTL_DATA,
 	LOCALE_CONFIG_REQUEST,
 	LOCALE_CONFIG_SUCCESS,
 	LOCALE_CONFIG_FAILURE,
-} from '../actionsConstants';
+} = actionConstants;
 
 // Localization (l10n) Reducer
 
