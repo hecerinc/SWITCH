@@ -8,6 +8,14 @@ http://www.discovermeteor.com/blog/what-goes-where/
 
 Missing files:
 
+UI: 
 - ui/apollo/ApolloClient.js
-- ui/Auth/*
-- ui/Dashboard/Emissions/*
+- ui/components/Auth/*
+- ui/components/Dashboard/Emissions/*
+- ui/components/Dashboard/Inputs/*
+- ui/components/Dashboard/Outputs/*
+- ui/components/Dashboard/Navigation/Dropzone.js
+- ui/components/Dashboard/commons/*
+
+Server: *
+
