@@ -1,14 +1,16 @@
 import Immutable from 'immutable';
+// Action type. Fires after _any_ changes in history
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 const initialState = Immutable.fromJS({
-  locationBeforeTransitions: null,
+	locationBeforeTransitions: null,
 });
 
-export default (state = initialState, action) => {
-  if (action.type === LOCATION_CHANGE) {
-    return state.set('locationBeforeTransitions', action.payload);
-  }
-
-  return state;
+const routerReducer = (state = initialState, action) => {
+	if (action.type === LOCATION_CHANGE) {
+		return state.set('locationBeforeTransitions', action.payload);
+	}
+	return state;
 };
+
+export default routerReducer;

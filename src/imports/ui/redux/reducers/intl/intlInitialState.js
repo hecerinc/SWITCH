@@ -4,13 +4,13 @@ import messages from '../../../locales/es';
  * ## Locale
  * This Record contains the state of the Locale
  */
-const InitialState = Immutable.fromJS({
+const initialState = Immutable.fromJS({
   locale: 'es',
   messages,
 });
 
 /**
- * ## InitialState
+ * ## initialState
  * The form is set
  */
-export default InitialState;
+export default initialState;

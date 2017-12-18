@@ -1,4 +1,4 @@
-import Emissions from '/imports/ui/components/Dashboard/Information/Emissions/index';
+import Emissions from '/imports/ui/components/Dashboard/Information/Emissions';
 import { compose, withState, lifecycle } from 'recompose';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
