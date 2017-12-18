@@ -1,8 +1,8 @@
 // Auth initial state.js
 
 import { Record } from 'immutable';
-import { SIGNIN } from '../actionsConstants';
-
+import actionConstants from '../actionsConstants';
+const { SIGNIN } = actionConstants;
 /**
  * Form
  * This Record contains the state of the form and the
@@ -31,15 +31,16 @@ const Form = Record({
 	error: null,
 	isValid: false,
 	isFetching: false,
-	fields: new formFields()
+	fields: (new formFields())
 });
 
 /**
  * ## InitialState
  * The form is set
  */
-const initialState = new Record({
-	form: new Form()
+// BUG: for some reason instantiating it here and then exporting it doesn't work
+const initialState = Record({
+	form: (new Form())
 });
 
 export default initialState;

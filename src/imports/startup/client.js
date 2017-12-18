@@ -19,7 +19,8 @@ const history = createHistory();
 
 Meteor.startup(() => {
 	document.body.innerHTML = '<div id="react-root"></div>';
-	store.dispatch(initLocale());
+	// TODO: not yet implemented
+	// store.dispatch(initLocale());
 	render(
 		<ApolloProvider client={client} store={store}>
 			<IntlProvider intlSelector={state => state.get('intl').toJS()}>

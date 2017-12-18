@@ -15,7 +15,7 @@ import intlInitialState from './reducers/intl/intlInitialState';
 
 const initialState = immutable.fromJS({
 	intl: intlInitialState,
-	auth: authInitialState
+	auth: authInitialState()
 });
 
 // create a redux store by providing reducers and middleware
