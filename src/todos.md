@@ -4,3 +4,10 @@
 https://guide.meteor.com/structure.html
 https://guide.meteor.com/testing.html
 http://www.discovermeteor.com/blog/what-goes-where/
+
+
+Missing files:
+
+- ui/apollo/ApolloClient.js
+- ui/Auth/*
+- ui/Dashboard/Emissions/*
