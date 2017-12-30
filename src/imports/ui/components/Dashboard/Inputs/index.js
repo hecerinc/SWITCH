@@ -20,8 +20,8 @@ const Inputs = () => {
 			}}
 		>
 			<Header />
-			<div id="body">
-				<Col xs="12" sm="12" lg="12" style={{ height: `${100}%` }}>
+			<div id="body" style={{width: '100%', height: '100%'}}>
+				<Col xs="12" sm="12" lg="12" style={{ height: '100%' }}>
 					<Switch>
 						<Route exact path="/inputs" component={Capacity} />
 						<Route path="/inputs/capacity" component={Capacity} />

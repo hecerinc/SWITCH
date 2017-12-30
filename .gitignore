@@ -17,3 +17,9 @@ src/jsonconfig.json
 .vscode/
 
 
+# Documentation
+morenotes.html
+docs/*.html
+examples/mx/*
+
+

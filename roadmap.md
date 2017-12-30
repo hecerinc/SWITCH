@@ -51,3 +51,6 @@ PRODESEN
 - [ ] Run the whole model from App
 - [ ] User testing on target users
 
+## Things to revise:
+
+- [ ] Los load zones en balance areas no estan completos
