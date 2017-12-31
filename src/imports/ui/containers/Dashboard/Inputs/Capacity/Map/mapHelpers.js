@@ -79,6 +79,7 @@ function createLegend(country) {
 	return legend;
 }
 
+// BUG: There is no indication of the current selected load Zone. Also, why do we want to zoom *every time*?
 // Function to highlight the shapes of a echa polygon (loadZone) whe hover
 export function highlightFeature(layer, lZ, map, country, key, a, mapInfo) {
 	let id = lZ.ID;
@@ -128,24 +129,26 @@ export function zoomToFeature(layer, map) {
 }
 // Function to handle a click over a polygon, it will update the labels
 export function handleClick(data, a) {
-	console.log(data);
+	//console.log(data);
 	let arrayData = [];
 	let name = data.properties.name;
-	let type = data ? data.type : 'none'; // FIXME temporal approach to skip loadZones w/o data
+	// let type = data ? data.type : 'none'; // FIXME temporal approach to skip loadZones w/o data
 	let d = data.properties.capacity.break_down;
 	let color = data.properties ? data.properties.color : '#ffffff';
 
-	d.map(a => {
+	d.forEach(a => {
 		arrayData.push({ name: a.key, [name]: a.value });
-		return a;
+		// return a;
 	});
-
-	if (type == 'balancingArea') {
+	// BUG: why why do you have two methods for setting balancingArea and load zone? It's not possible to select a load zone without selecting a balancing area, so why not set both at the same time?
+	if (data.type == 'balancingArea') {
 		a.props.setBalancingArea({ name: name, values: arrayData, color: color });
-	} else if (type == 'loadZone') {
+	}
+	else if (data.type == 'loadZone') {
 		a.props.setLoadZone({ name: name, values: arrayData });
 	}
 }
+
 
 // Function to set the upper info, it will describe the current shape when hover
 function createInfoBox() {
@@ -192,12 +195,16 @@ export function setGeoJSON(country, map, a, mapInfo) {
 
 		let geojsonLayers = [];
 
+		// For each balance area
 		for (let key in country.balancingAreas) {
-			// function to iterate over the gejson files and attach them a click handler per feature (polygon, point..shape)
+			// function to iterate over the geojson files and attach them a click handler per feature (polygon, point..shape)
+
+			let shapes = country.balancingAreas[key].properties.shape[shapeName].features;
+
+			// For each load zone in this balance area, store in newShapes the shape if it exists in loadZones
+			let newShapes = []; // An array of load zones
 			let keys = Object.keys(country.loadZones);
 
-			let newShapes = [];
-			let shapes = country.balancingAreas[key].properties.shape[shapeName].features;
 			shapes.map(obj =>
 				keys.map(k => {
 					if (obj.properties.ID === k) {
@@ -205,7 +212,7 @@ export function setGeoJSON(country, map, a, mapInfo) {
 					}
 				})
 			);
-
+			// Reordering? according to the loadZones?
 			newCountry.balancingAreas[key].properties.shape[shapeName].features = newShapes;
 
 			geojsonLayers.push(
@@ -235,13 +242,19 @@ export function setGeoJSON(country, map, a, mapInfo) {
 				})
 			);
 
-			geojsonLayers.forEach(layer => {
-				let featureGroup = L.featureGroup([layer]);
-				featureGroup.on('click', () => handleClick(layer.options.b_a, a));
-			});
 		}
+		geojsonLayers.forEach(layer => {
+			let featureGroup = L.featureGroup([layer]);
+			featureGroup.on('click', () => handleClick(layer.options.b_a, a));
+		});
 
 		shapeLayers[shapeName] = L.layerGroup(geojsonLayers);
 	}
 	return shapeLayers;
 }
+
+export function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+

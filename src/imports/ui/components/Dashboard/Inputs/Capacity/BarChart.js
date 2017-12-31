@@ -1,3 +1,6 @@
+// MyBarChart.js
+// Used in Inputs/Capacity/index.js
+
 import {
   ResponsiveContainer,
   Legend,
@@ -9,7 +12,7 @@ import {
   YAxis,
 } from 'recharts';
 
-export default class C extends React.Component {
+export default class MyBarChart extends React.Component {
   render() {
     if (this.props.data && this.props.data.name) {
       return (

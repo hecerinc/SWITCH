@@ -22,7 +22,7 @@ import s_b_a_07 from '../data/balancing_areas/switch/b_a_07';
 import s_b_a_08 from '../data/balancing_areas/switch/b_a_08';
 import s_b_a_09 from '../data/balancing_areas/switch/b_a_09';
 
-// Schema of a country. In this case Mexico has 54 load zones clustered in 9 balancing areas. Also we have two types of shapes (1.-provided by PRODESEN and 2.- builded by SWITCH team)
+// Schema of a country. In this case Mexico has 54 load zones clustered in 9 balancing areas. Also we have two types of shapes (1.-provided by PRODESEN and 2.- built by SWITCH team)
 let getCountry = () => ({
   type: 'CountryCollection',
   name: 'Mexico',
