@@ -6,7 +6,7 @@ import { Row, Col, Card, CardHeader, CardBlock } from 'reactstrap';
 
 import BarChart from './BarChart';
 import Map from '/imports/ui/containers/Dashboard/Inputs/Capacity/Map';
-import StackedChart from 'imports/ui/containers/Dashboard/Inputs/Capacity/Chart';
+import StackedChart from '/imports/ui/containers/Dashboard/Inputs/Capacity/Chart';
 
 import '/imports/ui/styles/App/HomeContainer.scss';
 
@@ -31,13 +31,13 @@ const Capacity = (props) => {
 					<Card style={{ height: '100%', width: '100%' }}>
 						<CardHeader> Mexico </CardHeader>
 						<CardBlock className="card-body">
+							{/* BUG: you don't need to pass these down to the component if you use Redux, as the Map container can subscribe to the updates. */}
 							<Map
-								{/* BUG: you don't need to pass these down to the component if you use Redux, as the Map container can subscribe to the updates. */}
 								setLoadZone={props.setLoadZone}
 								setBalancingArea={props.setBalancingArea}
 								setColor={props.setColor}
-								{/*setCountryData={props.setCountryData}*/}
 							/>
+							{/*setCountryData={props.setCountryData}*/}
 						</CardBlock>
 					</Card>
 				</Col>
