@@ -2,7 +2,7 @@
 
 
 - `recharts` is being used for the charts
-
+- Redux is installed and developed but not used
 
 ## PowerPlants.csv
 

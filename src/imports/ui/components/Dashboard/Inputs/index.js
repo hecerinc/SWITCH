@@ -1,6 +1,7 @@
 // <Inputs /> Presentational
 import { Switch, Route } from 'react-router-dom';
 import { Col } from 'reactstrap';
+
 import Header from './Header';
 import Capacity from '/imports/ui/containers/Dashboard/Inputs/Capacity/capacityContainer';
 import ProjectInfo from '/imports/ui/containers/Dashboard/Inputs/ProjectInfo/projectInfoContainer';
@@ -21,11 +22,13 @@ const Inputs = () => {
 		>
 			<Header />
 			<div id="body" style={{width: '100%', height: '100%'}}>
+				{/* Used to be in <InputsRouter /> */}
+				{/* TODO: Do you really need xs, sm & lg? */}
 				<Col xs="12" sm="12" lg="12" style={{ height: '100%' }}>
 					<Switch>
 						<Route exact path="/inputs" component={Capacity} />
 						<Route path="/inputs/capacity" component={Capacity} />
-						<Route path="/inputs/projectInfo" component={ProjectInfo} />
+						<Route path="/inputs/projectinfo" component={ProjectInfo} />
 					</Switch>
 				</Col>
 			</div>
