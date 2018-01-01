@@ -1,24 +1,22 @@
-import DropzoneComponent from 'react-dropzone-component';
-import ReactDOMServer from 'react-dom/server';
-import { compose, withHandlers } from 'recompose';
-import { graphql } from 'react-apollo';
+// Menu Dropzone.js
+
 import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import { compose, withHandlers } from 'recompose';
+import ReactDOMServer from 'react-dom/server';
+
+import DropzoneComponent from 'react-dropzone-component';
 
 let componentConfig = {
 	iconFiletypes: ['.csv', '.tab', '.xlsx'],
 	showFiletypeIcon: true,
-	postUrl: 'no-url',
+	postUrl: 'no-url'
 };
 
-var djsConfig = {
+let djsConfig = {
 	acceptedFiles: '.csv,.tab,.xlsx,.xls,.tsv',
 	autoProcessQueue: false,
 	showFiletypeIcon: true,
-	params: {
-		myParam: 'Hello from a parameter!',
-		dictRemoveFile: 'lol',
-		anotherParam: 43,
-	},
 	previewTemplate: ReactDOMServer.renderToStaticMarkup(
 		<div className="dz-preview dz-file-preview">
 			<div className="uploaded-files">
@@ -34,30 +32,26 @@ var djsConfig = {
 				</div>
 			</div>
 		</div>
-	),
+	)
 };
 
-const Dropzone = props => {
-	var eventHandlers = {
+const Dropzone = (props) => {
+	let eventHandlers = {
 		addedfile: file => {
 			switch (file.name) {
-				case 'PowerPlants.csv': {
+				case 'PowerPlants.csv':
 					props.handlePowerPlants(file);
 					break;
-				}
-				case 'project_info.tab': {
+				case 'project_info.tab':
 					props.handleProjectInfo(file);
 					break;
-				}
-				case 'BuildTrans.tab': {
+				case 'BuildTrans.tab':
 					props.handleTransmissionLines(file);
 					break;
-				}
-
 				default:
 					break;
 			}
-		},
+		}
 	};
 	return (
 		<div>
@@ -85,8 +79,8 @@ const DropzoneContainer = compose(
 					// console.log(data, uploadTransmissionLines);
 					// data.files.push(uploadFile);          FIXME
 					// proxy.writeQuery({ query, data });
-				},
-			},
+				}
+			}
 		}
 	),
 	graphql(
@@ -95,9 +89,7 @@ const DropzoneContainer = compose(
 				uploadPowerPlants(file: $file)
 			}
 		`,
-		{
-			name: 'uploadPP',
-		}
+		{name: 'uploadPP'}
 	),
 	graphql(
 		gql`
@@ -113,12 +105,12 @@ const DropzoneContainer = compose(
 					// console.log(data, uploadLoadZones);
 					// data.files.push(uploadFile);          FIXME
 					// proxy.writeQuery({ query, data });
-				},
-			},
+				}
+			}
 		}
 	),
 	withHandlers({
-		handleTransmissionLines: ({ uploadTL }) => file => {
+		handleTransmissionLines: ({ uploadTL }) => (file) => {
 			uploadTL({
 				variables: { file },
 				refetchQueries: [
@@ -127,12 +119,12 @@ const DropzoneContainer = compose(
 							query fileQuery {
 								getTransmissionLines
 							}
-						`,
-					},
-				],
+						`
+					}
+				]
 			});
 		},
-		handlePowerPlants: ({ uploadPP }) => file => {
+		handlePowerPlants: ({ uploadPP }) => (file) => {
 			uploadPP({
 				variables: { file },
 				refetchQueries: [
@@ -141,12 +133,12 @@ const DropzoneContainer = compose(
 							query getPP {
 								getPowerPlants
 							}
-						`,
-					},
-				],
+						`
+					}
+				]
 			});
 		},
-		handleProjectInfo: ({ uploadPI }) => file => {
+		handleProjectInfo: ({ uploadPI }) => (file) => {
 			uploadPI({
 				variables: { file },
 				refetchQueries: [
