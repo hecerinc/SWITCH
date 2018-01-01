@@ -13,8 +13,7 @@ import 'leaflet/dist/leaflet.css';
 
 import Map from '/imports/ui/components/Dashboard/Inputs/Capacity/Map';
 
-// TODO: Why is this not the whole object?
-import getCountry from '/imports/ui/data';
+import country from '/imports/ui/data';
 
 import { addDataToMap, handleClick } from './mapHelpers';
 
@@ -114,7 +113,6 @@ const Container = compose(
 
 					let randomBalancingArea = randomProperty(balancingAreas);
 					let index = randomBalancingArea.properties.index;
-					let country = getCountry();
 					let lz = country.balancingAreas[index].properties.shape.Prodesen.features;
 					let randomLoadZone = 0;
 

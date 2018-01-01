@@ -1,16 +1,22 @@
-import { compose, withState, lifecycle } from 'recompose';
-import '/imports/ui/styles/App/HomeContainer.scss';
 
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import { compose, withState, lifecycle } from 'recompose';
 
+// Leaflet
+// BUG: Check Leaflet images bug
+// TODO: Import from 'leaflet'
 import L from 'leaflet/dist/leaflet.js';
 import 'leaflet/dist/leaflet.css';
 
-import Transmission from '../../../components/Dashboard/Outputs/Transmission';
-import coordinates from '../../../data/load_zones/coordinates';
-import country from './data';
+import Transmission from '/imports/ui/components/Dashboard/Outputs/Transmission';
+
+// Data
+import country from '/imports/ui/data';
+import coordinates from '/imports/ui/data/load_zones/coordinates';
 import { drawPoints, setLegend, setInfo, showMap, getYears, showNewPoints } from './mapHelpers';
+
+import '/imports/ui/styles/App/HomeContainer.scss';
 
 const Container = compose(
   graphql(gql`

@@ -2,8 +2,7 @@
 
 import { ResponsiveContainer, Tooltip, BarChart, Bar, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-// TODO: Why is this import not the whole object? (this is importing a function)
-import getCountry from '/imports/ui/data';
+import country from '/imports/ui/data';
 
 import '/imports/ui/styles/App/HomeContainer.scss';
 
@@ -14,7 +13,7 @@ import '/imports/ui/styles/App/HomeContainer.scss';
 const CapacityChart = (props) => {
 	if (props.data) {
 		let listItems = [];
-		let balancingAreas = getCountry().balancingAreas;
+		let balancingAreas = country.balancingAreas;
 
 		Object.entries(balancingAreas).forEach(([key, value]) => {
 			listItems.push(

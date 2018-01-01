@@ -1,4 +1,4 @@
-// importing GeoJSON files, there is no need to write out the file extension in here, though it is extremly importat to change the actual file extensions from ".geojson" to ".json"
+// importing GeoJSON files, there is no need to write out the file extension in here, though it is extremly important to change the actual file extensions from ".geojson" to ".json"
 
 import p_b_a_00 from '../data/balancing_areas/prodesen/b_a_00';
 import p_b_a_01 from '../data/balancing_areas/prodesen/b_a_01';
@@ -23,7 +23,8 @@ import s_b_a_08 from '../data/balancing_areas/switch/b_a_08';
 import s_b_a_09 from '../data/balancing_areas/switch/b_a_09';
 
 // Schema of a country. In this case Mexico has 54 load zones clustered in 9 balancing areas. Also we have two types of shapes (1.-provided by PRODESEN and 2.- built by SWITCH team)
-let getCountry = () => ({
+
+const country = {
   type: 'CountryCollection',
   name: 'Mexico',
   balancingAreas: {
@@ -151,6 +152,6 @@ let getCountry = () => ({
   },
 
   loadZones: {},
-});
+};
 
-export default getCountry;
+export default country;
