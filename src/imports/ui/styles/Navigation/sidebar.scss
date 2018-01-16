@@ -27,9 +27,11 @@ html {
 body {
   height: 100%;
   background: #0067c8;
-  color: #fffce1;
   font-family: 'Raleway', Arial, sans-serif;
   overflow: hidden;
+}
+#scaleDown{
+  color: #fffce1;
 }
 #app {
   height: 100%;

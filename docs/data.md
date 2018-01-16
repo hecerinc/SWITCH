@@ -139,5 +139,3 @@ The schema for that collection looks like this:
 	]
 }
 ```
-
-

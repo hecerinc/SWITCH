@@ -1,0 +1,31 @@
+'timepoints.tab'
+'periods.tab'
+'gen_build_costs.tab'
+'generation_projects_info.tab'
+'timeseries.tab'
+'loads.tab'
+'load_zones.tab'
+'fuels.tab'
+'non_fuel_energy_sources.tab'
+'financials.dat'
+
+
+The inputs folder must contain the following files with the following columns: 
+(Cols can be in any order and extra cols will be ignored)
+
+periods.tab
+	INVESTMENT_PERIOD, period_start, period_end
+
+timeseries.tab
+	TIMESERIES, period, ts_duration_of_tp, ts_num_tps, ts_scale_to_period
+
+timepoints.tab
+	timepoint_id, timestamp, timeseries
+	
+financials.dat
+	param base_financial_year := 2015;
+	param interest_rate := .07;
+	param discount_rate := .05;
+
+ *Note:* The only example that includes a full set of outputs is `copperplate0` (https://github.com/switch-model/switch/commit/e8ff91bbbf1f799f113e499c1f4ee502ada3eb70#diff-22d3b52ee1fbacb256e16b0f8f67e384)
+

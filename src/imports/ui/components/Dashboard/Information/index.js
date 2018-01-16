@@ -1,5 +1,5 @@
 import Header from './Header';
-import Body from './InformationRouter';
+import InformationRouter from './InformationRouter';
 
 const Information = () => {
 	return(
@@ -13,7 +13,7 @@ const Information = () => {
 			}}
 		>
 			<Header />
-			<Body />
+			<InformationRouter />
 		</div>
 	);
 }

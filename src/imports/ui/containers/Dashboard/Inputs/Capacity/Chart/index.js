@@ -1,29 +1,34 @@
 import React from 'react';
 
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
-import Chart from '../../../../../components/Dashboard/Inputs/Capacity/StackedChart';
+import Chart from '/imports/ui/components/Dashboard/Inputs/Capacity/StackedChart';
 
 const data = gql`
-  query uploadPP {
-    getPowerPlants
-  }
+	query uploadPP {
+		getPowerPlants
+	}
 `;
 
+// TODO: Is this _really_ a container?
+// TODO: consider renaming from Chart/index.js => ../StackedChart.js
 class StackedChart extends React.Component {
-  static propTypes = {
-    data: React.PropTypes.shape({
-      Trainer: React.PropTypes.object,
-    }).isRequired,
-  };
-  render() {
-    if (this.props.data.getPowerPlants && this.props.data.getPowerPlants[0]) {
-      return <Chart data={this.props.data.getPowerPlants[0].chartData} />;
-    }
 
-    return <div>Loading</div>;
-  }
+	static propTypes = {
+		data: React.PropTypes.shape({
+			Trainer: React.PropTypes.object,
+		}).isRequired,
+	};
+
+	render() {
+		if (this.props.data.getPowerPlants && this.props.data.getPowerPlants[0]) {
+			return <Chart data={this.props.data.getPowerPlants[0].chartData} />;
+		}
+
+		return <div>Loading</div>;
+	}
+
 }
 
 const ChartWithData = graphql(data)(StackedChart);
