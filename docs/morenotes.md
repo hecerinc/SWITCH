@@ -3,6 +3,23 @@
 - An obvious fact is that the outputs (whatever is in the `outputs` folder after running the model) depend on the `inputs` files (the files in that folder)
 - A non-obvious but **crucial** fact is that what files are in the `inputs/` folder will depend on the modules that are going to be run in the model
 
+
+## Purpose
+
+## Time management
+
+
+## Conventions
+
+- **Sets**: Names of sets are in **CAPITAL LETTERS** (e.g. `HOURS`)
+	- locations of power plants
+	- hours of the study
+	- time periods
+	- tech available for installation
+- **Parameters**: provide input data for the optimization. Use `snake_case` (e.g. `capacity_factor`)
+- **Decision variables**: indicate choices made by Switch. Use `PascalCase` (e.g. `InstallGen`)
+
+
 ## Modules
 
 A comprehensive list of available modules:

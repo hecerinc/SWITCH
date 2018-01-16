@@ -87,7 +87,7 @@ const Container = compose(
 
 
 			// Instantiate a new map
-			const map = L.map(a.refs.national_map, {
+			const map = L.map(this.refs.national_map, {
 				center: [23.8, -102.1],
 				layers: [baseLayer],
 				minZoom: 4,
