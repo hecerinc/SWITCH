@@ -6,7 +6,7 @@ The SWITCH GUI is a mixture of several frameworks and libraries. At its core, it
 
 The bootup process is a bit complex from the fact that both meteor and electron have to be started. This is a video walkthrough of the code that boots the application:
 
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/e7QYGk9sH6s" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+[![Bootup video](http://monywize.com/images/video-placeholdere9f3.png?1454083235)](https://www.youtube.com/watch?v=e7QYGk9sH6s)
 
 ## Architecture
 
