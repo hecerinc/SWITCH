@@ -19,6 +19,7 @@ src/jsonconfig.json
 
 # Documentation
 morenotes.html
+commontoallexamples.txt
 docs/*.html
 examples/mx/*
 
