@@ -10,10 +10,13 @@ The bootup process is a bit complex from the fact that both meteor and electron 
 
 ## Architecture
 
+![Architecture](img/arch.png)
+
 ## Some notes
 
 - `recharts` is being used for the charts
 - Redux is installed and developed but not used
+- The core application was based on [bootstrap-electron-meteor](https://github.com/bompi88/bootstrap-electron-meteor)
 
 ## Missing data in PowerPlants.csv
 
