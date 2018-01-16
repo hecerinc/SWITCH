@@ -1,4 +1,4 @@
-# SWITCH GUI Docs
+# SWITCH GUI Documentation
 
 
 - `recharts` is being used for the charts
