@@ -26,6 +26,8 @@ The following load zones exist as a shape both in Prodesen and Switch, but no da
 {6, 41, 45, 47, 49, 19, 20, 52, 26}
 ```
 
+## Directory structure
+
 
 
 ## Component Structure
@@ -39,3 +41,6 @@ The following is a sketch of the different component structure for the views of 
 ![Capacity](img/docs_13.png)
 ![ProjectInfo](img/docs_18.png)
 ![Transmission](img/docs_21.png)
+
+
+RAEL and BECI license 

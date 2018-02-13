@@ -87,23 +87,156 @@ Defined in `/__init.py__`
 
 ---
 
+### `balancing.planning_reserves`
+
+This module defines planning reserves margins to support resource adequacy requirements. These requirements are sometimes called capacity reserve margins.
+
+#### Sets
+#### Properties
+#### Inputs
+#### Outputs
+#### Files
+
+---
+
+### `balancing.load_zones`
+
+Defines load zone parameters for the SWITCH-Pyomo model.
+
+#### Sets
+
+- `LOAD_ZONES`: set of load zones
+- `zone_demand_mw[z,t]`: describes the power demand from the high voltage transmission grid each load zone `z` and timepoint `t`
+
+#### Properties
+#### Inputs
+#### Outputs
+
+- **`load_balance.txt`**: is a wide table of energy balance components for every zone and timepoint. Each component registered with `Zone_Power_Injections` and `Zone_Power_Withdrawals` will become a column.
+
+#### Files
+
+- **`load_zones.tab`**
+	- `LOAD_ZONE`
+	- `[zone_ccs_distance_km]`
+	- `[zone_dbid]`
+- **`loads.tab`**
+	- `LOAD_ZONE`
+	- `TIMEPOINT`
+	- `zone_demand_mw`
+- **`[zone_coincident_peak_demand]`**
+	- `LOAD_ZONE`
+	- `PERIOD`
+	- `zone_expected_coincident_peak_demand`
+
+---
+
+### `generators.core.build`
+
+Defines generation projects build-outs. Describes generation & storage projects.
+
+#### Sets
+
+- `GENERATION_PROJECTS`: the set of generation and storage projects that have been built or could potentially be built. A project is a combination of generation technology, load zone and location. A particular build-out of a project should also include the year in which construction was complete and additional capacity came online. Members of this set are abbreviated as `gen` in parameter names and `g` in indexes.
+- `GEN_BLD_YEARS`: a 2D set of projects & the year in which expanison occured or can occur (when they came online). 
+
+**Investment decisions are made for each project/invest period combination.**
+
+#### Properties
+
+- `gen_tech`: what kind of tech teh proejct uses
+- `gen_load_zone`: where the project is built
+- `[gen_capacity_limit_mw]`: defined for capacity-limited projects
+- `gen_connect_cost_per_mw[g]`: is the cost of grid upgrades to support a new project, in dollars per peak MW. These costs include new transmission lines to a substation, substation upgrades and any other grid upgrades that are needed to deliver power from the interconnect point to the load center or from the load center to the broader transmission network.
+- `gen_predetermined_cap[(g, build_year) in PREDETERMINED_GEN_BLD_YRS]`: is a parameter that describes how much capacity was built in the past for existing projects, or is planned to be built for future projects.
+
+#### Input Files
+
+- **`generation_projects_info.tab`**:
+	- `GENERATION_PROJECT`
+	- `gen_tech`
+	- `gen_energy_source`
+	- `gen_load_zone`
+	- `gen_max_age`
+	- `gen_is_variable`
+	- `gen_is_baseload`
+	- `gen_full_load_heat_rate`
+	- `gen_variable_om`
+	- `gen_connect_cost_per_mw `
+	- `[gen_dbid]`
+	- `[gen_scheduled_outage_rate]`
+	- `[gen_forced_outage_rate]`
+	- `[gen_capacity_limit_mw]`
+	- `[gen_unit_size]`
+	- `[gen_ccs_energy_load]`
+	- `[gen_ccs_capture_efficiency]`
+	- `[gen_min_build_capacity]`
+	- `[gen_is_cogen]`
+	- `[gen_is_distributed]`
+- **`gen_build_costs.tab`**: cost parameters for both existing & new project buildouts
+	- `GENERATION_PROJECT`
+	- `build_year`
+	- `gen_overnight_cost`
+	- `gen_fixed_om`
+- **`[gen_build_predetermined.tab]`**: Lists existing builds of projects, and is optional for simulations where there is no existing capacity
+    - `GENERATION_PROJECT`
+    - `build_year`
+    - `gen_predetermined_cap`
+- **`[gen_multiple_fuels.dat]`**
+
+
+
+#### Decision Variables
+
+- `BuildGen[g,build_year]`: is a decision variable that describes how much capacity of a project to install in a given period
+
+#### Output Files
+
+- **`gen_cap.txt`**: 
+	- `GENERATION_PROJECT`
+	- `PERIOD`
+	- `GenCapacity`
+	- `GenCapitalCosts`
+	- `GenFixedOMCosts`
+
+
+---
+
 ### `generators.core.dispatch`
+
+Describes dispatch decisions & constraints of generation and storage projects.
+
+**DEPENDS**: `operations.no_commit` **OR** `operations.unitcommit`
+
+to constrain project dispatch to either commited or installed capacity.
 
 #### Sets 
 
-#### Properties:
+- `GEN_TPS`: a set of projects and timepoints in which they can be dispatched
+
+#### Properties
 
 - `gen_forced_outage_rate` && `gen_scheduled_outage_rate`: These parameters can be specified for individual projects via an input file, or generically for all projects of a given generation technology via `g_scheduled_outage_rate` and `g_forced_outage_rate`. **You will get an error if any project is missing values for either of these parameters.**
-- `[gen_variable_om]`: is the variable Operations and Maintenance costs (O&M) per MWh of dispatched capacity for a given project gen_full_load_heat_rate[g] is the full load heat rate in units of MMBTU/MWh that describes the thermal efficiency of a project when running at full load. This optional parameter overrides the generic heat rate of a generation technology.
+- `[gen_variable_om]`: is the variable Operations and Maintenance costs (O&M) per MWh of dispatched capacity for a given project 
+- `[gen_full_load_heat_rate[g]]`: is the full load heat rate in units of MMBTU/MWh that describes the thermal efficiency of a project when running at full load. This optional parameter overrides the generic heat rate of a generation technology.
 
-#### Files required
+#### Decision Variables
+
+-  `DispatchGen[(g, t) in GEN_TPS]` is the set of generation dispatch decisions: how much average power in MW to produce in each timepoint.
+- `GenFuelUseRate[(g, t, f) in GEN_TP_FUELS]`: is a variable that describes fuel consumption rate in MMBTU/h. This should be constrained to the fuel consumed by a project in each timepoint and can be calculated as Dispatch [MW] * effective_heat_rate [MMBTU/MWh] -> [MMBTU/h]. The choice of how to constrain it depends on the treatment of unit commitment. Currently the project.no_commit module implements a simple treatment that ignores unit commitment and assumes a full load heat rate, while the project.unitcommit module implements unit commitment decisions with startup fuel requirements and a marginal heat rate.
+
+#### Input Files
 
 **Note:** `variable_capacity_factors` can be skipped if no variable renewable projects are considered in the optimization.
 
-- **`variable_capacity_factors.tab`**
+- **`[variable_capacity_factors.tab]`**
 	- `GENERATION_PROJECT`
 	- `timepoint`
 	- `gen_max_capacity_factor`
+
+#### Output files
+
+- **`dispatch.txt`**:
 
 ---
 
@@ -112,6 +245,39 @@ Defined in `/__init.py__`
 Defines simple limitations on project dispatch without considering unit commitment. This module is mutually exclusive with the `operations.unitcommit` module which constrains dispatch to unit commitment decisions.
 
 Adds components to constrain dispatch decisions subject to available capacity, renewable resource availability, and baseload restrictions.
+
+
+---
+
+### `energy_sources.properties`
+
+Defines model components to describe both fuels and non-fuel energy sources for the SWITCH-Pyomo model.
+
+#### Sets
+
+- `ENERGY_SOURCES`: is the set of primary energy sources used to generate electricity. Some of these are fuels like coal, uranium or biomass, and  some are renewable sources like wind, solar and water.
+	- `NON_FUEL_ENERGY_SOURCES`: is a subset of `ENERGY_SOURCES` that lists primary energy sources that are not fuels. Things like sun, wind, water, or geothermal belong here.
+	- `FUELS` is a subset of `ENERGY_SOURCES` that lists primary energy sources that store potential energy that can be released to do useful work. Many fuels are fossil-based, but the set of fuels also includes biomass, biogas and uranium.
+
+
+#### Properties
+
+- `f_co2_intensity[f]`: describes the carbon intensity of direct emissions incurred when a fuel is combusted in units of metric tonnes of Carbon Dioxide per Million British Thermal Units (tCO2/MMBTU).
+- `[f_upstream_co2_intensity[f]]`:  is the carbon emissions attributable to a fuel before it is consumed in units of tCO2/MMBTU. Defaults to 0.
+
+#### Input Files
+
+- **`non_fuel_energy_sources.tab`**
+	- `energy_source`
+- **`fuels.tab`**
+	- `fuel`
+	- `co2_intensity`
+	- `upstream_co2_intensity`
+
+
+#### Output Files
+
+`NA`
 
 
 ---
@@ -159,6 +325,46 @@ Defines model components to describe fuel markets for the SWITCH-Pyomo model.
 	- `fuel`
 	- `period`
 	- `fuel_cost`
+
+---
+
+### `reporting`
+
+#### Output Files
+
+- `total_cost.txt`
+
+
+---
+
+### `financials`
+
+Defines financial parameters for the SWITCH-Pyomo model.
+
+Describe financial conversion factors such as interest rates, discount rates, as well as constructing more useful coefficients from those terms.
+
+**DEPENDS**: `timescales`
+
+#### Sets
+
+
+
+#### Properties
+
+- `base_financial_year`: is used for net present value calculations
+- `interest_rate`: is real interest rate paid on a loan from a bank
+ - `[discount_rate]`: is the annual real discount rate used to convert future dollars into net present value for purposes of comparison.
+
+ > In general, if you are converting value of money forward in time (from a present to a future value), use an interest rate. If you are converting value of money back in time, use a discount rate.
+
+#### Input Files
+
+- **`financials.dat`**: defines the set of scalars in Properties
+
+#### Output Files
+
+`NA`
+
 
 ---
 
@@ -218,6 +424,10 @@ Defines model components to describe local transmission & distribution build-out
 - `distribution_loss_rate`: is the ratio of average losses for local T&D. This optional value defaults to `0.053`
 - `local_td_annual_cost_per_mw[z in LOAD_ZONES]`: describes the total annual costs for each MW of local transmission & distribution.
 
+#### Decision Variables
+
+- `WithdrawFromCentralGrid[z, t]` is a decision variable that describes the power exchanges between the central grid and the distributed network, from the perspective of the central grid.
+- `BuildLocalTD[(z, bld_yr) in LOCAL_TD_BLD_YRS]` is a decision variable describing how much local transmission and distribution to build in a load zone. For existing builds, this variable is locked to existing capacity.
 
 #### Files
 
@@ -303,7 +513,9 @@ Defines timescales for investment and dispatch for the SWITCH-Pyomo model.
 	- `ts_num_tps[ts]`: The number of timepoints in a timeseries.
 	- `ts_duration_of_tp[ts]`: The duration in hours of each timepoint within a timeseries.
 	- `ts_scale_to_period[ts]`: The number of times this representative timeseries is expected to occur in a period. Used as a scaling factor to adjust the weight from `ts_duration_hrs` up to a period.
-TODO: MISSING
+- `TIMEPOINTS`: describe unique timepoints within a time series and typically index exogenous variables such as electricity demand and variable renewable energy output. The duration of a timepoint is typically on the order of one or more hours, so costs associated with timepoints are specified in hourly units, and the weights of timepoints are specified in units of hours. TIMEPOINTS replaces the HOURS construct in some of the old versions of SWITCH.
+- `TPS_IN_PERIOD[period]`: The set of timepoints in a period.
+
 
 #### Properties
 
@@ -326,6 +538,8 @@ TODO: MISSING
 	- `timestamp`
 	- `timeseries`
 
+
+---
 
 ## Projects (new generation)
 
